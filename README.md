@@ -20,7 +20,7 @@ Cada etapa pode ser usada sozinha.
 Você precisa de Python 3.12 ou mais novo, do [`uv`](https://docs.astral.sh/uv/), de macOS ou Linux e de uma chave da API da Anthropic.
 
 ```bash
-git clone <url-do-repositorio> class2md
+git clone https://github.com/lucas-l-silva/class2md-public class2md
 cd class2md
 uv sync
 cp .env.example .env
