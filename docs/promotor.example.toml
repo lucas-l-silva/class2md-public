@@ -1,0 +1,20 @@
+# Copie para ~/.config/class2md/promotor.toml e ajuste os caminhos.
+#
+#   mkdir -p ~/.config/class2md
+#   cp docs/promotor.example.toml ~/.config/class2md/promotor.toml
+
+# Obrigatório. Pasta do seu vault do Obsidian (ou qualquer pasta de notas Markdown) onde as
+# notas aprovadas serão copiadas.
+vault_dir = "/caminho/para/seu/vault/Estudos"
+
+# Obrigatório. Subpasta (relativa a vault_dir) ou caminho absoluto onde os recortes de imagem
+# embutidos nas notas (![[...]]) serão copiados.
+anexos_dir = "anexos"
+
+# Opcional. Deixe comentado/ausente se o pipeline (scripts/estudos.py) e o promotor
+# (scripts/promover.py) rodam na MESMA máquina — é o caso comum de quem tem um só computador.
+# ssh_host = "nome-do-host-ssh"
+
+# Só usado se ssh_host estiver definido: caminho do repositório na máquina remota que roda o
+# pipeline, para o promotor chamar "promover-finalizar" por lá via SSH.
+# repo_dir_remoto = "~/class2md"

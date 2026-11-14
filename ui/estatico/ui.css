@@ -1,0 +1,1830 @@
+/* ui_v2.css
+   Estilo da interface local do class2md, versão 2. Substitui ui.css (instalar com o nome ui.css).
+   Sem fonte remota, sem imagem remota, sem importar outro arquivo, sem url() de dados.
+   Ícones: /estatico/icones.svg, por <use>, com cor herdada do texto.
+   Todo movimento fica na seção 27, dentro de prefers-reduced-motion: no-preference.
+   Seções: 1 tokens · 2 base · 3 utilitários e foco · 4 ícones · 5 topo e rodapé · 6 abas
+   7 passos · 8 botões e ações · 9 cartões de material · 10 etapas · 11 campos · 12 envio
+   13 tabelas · 14 custo · 15 progresso · 16 métricas · 17 revisão · 18 estados · 19 avisos
+   20 código · 21 detalhe · 22 diálogo · 23 etiqueta, cartão e nota · 24 dúvidas
+   25 ajuda · 26 cores forçadas e impressão · 27 movimento */
+
+/* 1. Tokens */
+
+:root {
+  color-scheme: light dark;
+  --vf-fundo: #FAFAF8;
+  --vf-superficie: #FFFFFF;
+  --vf-chip: #F0F0EC;
+  --vf-acento-suave: #E6F0F6;
+  --vf-texto: #1B1F23;
+  --vf-texto-2: #4A5159;
+  --vf-acento: #005F96;
+  --vf-sobre-acento: #FFFFFF;
+  --vf-borda-comp: #7A8189;
+  --vf-borda-dec: #E2E2DD;
+  --vf-foco: #0072B2;
+  --vf-erro: #A84700;
+  --vf-pendente-fundo: #FFF4CC;
+  --vf-pendente-borda: #8A6400;
+  --vf-pendente-texto: #1B1F23;
+
+  --vf-fonte: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --vf-serifa: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --vf-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  --vf-e1: 0.25rem;
+  --vf-e2: 0.5rem;
+  --vf-e3: 0.75rem;
+  --vf-e4: 1rem;
+  --vf-e5: 1.5rem;
+  --vf-e6: 2.5rem;
+
+  --vf-raio: 8px;
+  --vf-raio-caixa: 12px;
+  --vf-leitura: 64ch;
+  --vf-largura: 48rem;
+  --vf-largura-revisao: 76rem;
+  --vf-alvo: 2.75rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --vf-fundo: #111417;
+    --vf-superficie: #1A1E23;
+    --vf-chip: #252A31;
+    --vf-acento-suave: #14293A;
+    --vf-texto: #E9EBEE;
+    --vf-texto-2: #B3B9C1;
+    --vf-acento: #56B4E9;
+    --vf-sobre-acento: #0B1620;
+    --vf-borda-comp: #737B85;
+    --vf-borda-dec: #2A2F36;
+    --vf-foco: #56B4E9;
+    --vf-erro: #E8853A;
+    --vf-pendente-fundo: #3A2F0B;
+    --vf-pendente-borda: #D9A520;
+    --vf-pendente-texto: #F5E6B0;
+  }
+}
+
+/* 2. Base */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--vf-fundo);
+}
+
+body,
+.vf-app {
+  margin: 0 auto;
+  max-width: var(--vf-largura);
+  padding: 0 var(--vf-e4) var(--vf-e6);
+  background: var(--vf-fundo);
+  color: var(--vf-texto);
+  font-family: var(--vf-fonte);
+  font-size: 1rem;
+  line-height: 1.55;
+  overflow-wrap: break-word;
+}
+
+/* a revisão da nota é a única tela que usa a largura toda */
+.vf-app:has(.vf-painel:not([hidden]) .vf-revisao) { max-width: var(--vf-largura-revisao); }
+
+h1, h2, h3, h4 {
+  margin: var(--vf-e5) 0 var(--vf-e2);
+  line-height: 1.25;
+  color: var(--vf-texto);
+}
+
+h2 {
+  margin: 0 0 var(--vf-e2);
+  font-family: var(--vf-serifa);
+  font-size: clamp(1.375rem, 1rem + 2vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h3 { margin-top: var(--vf-e6); font-size: 1.125rem; font-weight: 600; }
+h4 { font-size: 1rem; font-weight: 600; }
+
+p { margin: 0 0 var(--vf-e3); max-width: var(--vf-leitura); }
+
+/* a frase logo abaixo do título do passo é de apoio */
+h2 + p { color: var(--vf-texto-2); margin-bottom: var(--vf-e5); }
+
+ol, ul { margin: 0 0 var(--vf-e4); padding-left: 1.5rem; max-width: var(--vf-leitura); }
+
+li { margin-bottom: var(--vf-e1); }
+
+a {
+  color: var(--vf-acento);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+code, kbd {
+  font-family: var(--vf-mono);
+  font-size: 0.875rem;
+  background: var(--vf-chip);
+  padding: 0.0625rem 0.3125rem;
+  border-radius: 4px;
+  overflow-wrap: anywhere;
+}
+
+img { max-width: 100%; height: auto; }
+
+button,
+input,
+select,
+textarea { font: inherit; color: inherit; }
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+legend {
+  padding: 0;
+  margin: 0 0 var(--vf-e2);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+[hidden] { display: none !important; }
+
+/* 3. Utilitários e foco */
+
+.vf-num {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.vf-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--vf-foco);
+  outline-offset: 2px;
+}
+
+/* painel e título recebem foco por script; o contorno só aparece com teclado */
+h2[tabindex="-1"]:focus,
+h3[tabindex="-1"]:focus,
+.vf-painel:focus { outline: none; }
+
+h2[tabindex="-1"]:focus-visible,
+h3[tabindex="-1"]:focus-visible,
+.vf-painel:focus-visible {
+  outline: 3px solid var(--vf-foco);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.vf-pular {
+  position: absolute;
+  left: var(--vf-e4);
+  top: -4rem;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--vf-alvo);
+  padding: var(--vf-e2) var(--vf-e4);
+  border: 1.5px solid var(--vf-borda-comp);
+  border-radius: var(--vf-raio);
+  background: var(--vf-superficie);
+  color: var(--vf-texto);
+  font-weight: 600;
+}
+
+.vf-pular:focus { top: var(--vf-e2); }
+
+.vf-pendente {
+  background: var(--vf-pendente-fundo);
+  color: var(--vf-pendente-texto);
+  border: 1px dashed var(--vf-pendente-borda);
+  border-radius: 4px;
+  padding: 0 0.375rem;
+  font-size: 0.875rem;
+  font-style: normal;
+}
+
+/* 4. Ícones */
+
+.vf-icone {
+  flex: none;
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  vertical-align: -0.25em;
+  color: inherit;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  overflow: visible;
+}
+
+.vf-icone--p { width: 1rem; height: 1rem; vertical-align: -0.15em; }
+.vf-icone--g { width: 2rem; height: 2rem; }
+.vf-icone--gg { width: 3rem; height: 3rem; }
+
+/* 5. Topo e rodapé */
+
+.vf-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vf-e2) var(--vf-e3);
+  padding: var(--vf-e4) 0 var(--vf-e3);
+}
+
+.vf-topo-marca {
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--vf-acento);
+}
+
+.vf-topo-nome {
+  margin: 0;
+  font-family: var(--vf-serifa);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.vf-topo-estado {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--vf-e4);
+  margin: 0 0 0 auto;
+  font-size: 0.875rem;
+  color: var(--vf-texto-2);
+}
+
+.vf-topo-estado > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.375rem;
+}
+
+.vf-topo-estado dt::after { content: ":"; }
+
+.vf-topo-estado dd {
+  margin: 0;
+  font-weight: 600;
+  color: var(--vf-texto);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 479px) {
+  .vf-topo-estado { margin-left: 0; flex: 1 1 100%; }
+}
+
+/* o selo saiu do topo; a classe continua para a marcação antiga não quebrar */
+.vf-selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.0625rem var(--vf-e2);
+  border: 1.5px solid var(--vf-borda-comp);
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.vf-selo--ao-vivo {
+  border-color: var(--vf-texto);
+  background: var(--vf-texto);
+  color: var(--vf-fundo);
+}
+
+.vf-rodape {
+  margin-top: var(--vf-e6);
+  padding-top: var(--vf-e3);
+  border-top: 1px solid var(--vf-borda-dec);
+  font-size: 0.875rem;
+  color: var(--vf-texto-2);
+}
+
+/* 6. Abas */
+
+.vf-abas-lista {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border-bottom: 1px solid var(--vf-borda-comp);
+}
+
+.vf-abas:not([data-vf-pronto]) .vf-abas-lista { display: none; }
+
+.vf-aba {
+  flex: 1 0 auto;
+  min-height: var(--vf-alvo);
+  padding: var(--vf-e2);
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: var(--vf-raio) var(--vf-raio) 0 0;
+  background: none;
+  color: var(--vf-texto-2);
+  font-size: 0.9375rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+@media (min-width: 640px) {
+  .vf-aba { flex: 0 0 auto; padding-inline: var(--vf-e4); }
+}
+
+.vf-aba:hover { background: var(--vf-chip); color: var(--vf-texto); }
+
+/* ativa: negrito e barra. Dois sinais que não dependem de cor */
+.vf-aba[aria-selected="true"] {
+  border-bottom-color: var(--vf-acento);
+  color: var(--vf-texto);
+  font-weight: 700;
+}
+
+.vf-aba:focus-visible { outline-offset: -3px; }
+
+.vf-painel { padding-top: var(--vf-e5); }
+
+/* 7. Indicador de passos
+   Feito: barra escura e ícone de visto. Atual: barra mais alta, negrito e nome. Por vir: número. */
+
+.vf-passos {
+  display: flex;
+  gap: 0.375rem;
+  max-width: none;
+  margin: 0 0 var(--vf-e5);
+  padding: 0;
+  list-style: none;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--vf-texto-2);
+}
+
+.vf-passo {
+  flex: 0 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-width: 0;
+  margin: 0;
+  padding-top: 0.5rem;
+  border-top: 3px solid var(--vf-borda-comp);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.vf-passo-num {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.vf-passo-num .vf-icone { width: 1rem; height: 1rem; }
+
+.vf-passo-nome {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vf-passo[data-feito] {
+  border-top-color: var(--vf-texto);
+  color: var(--vf-texto);
+}
+
+.vf-passo[aria-current="step"] {
+  flex: 1 1 auto;
+  padding-top: calc(0.5rem - 2px);
+  border-top-width: 5px;
+  border-top-color: var(--vf-acento);
+  color: var(--vf-texto);
+  font-weight: 700;
+}
+
+.vf-passo[aria-current="step"] .vf-passo-num { font-weight: 700; }
+
+@media (max-width: 639px) {
+  /* em tela estreita só o passo atual mostra o nome */
+  .vf-passo:not([aria-current="step"]) .vf-passo-nome {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}
+
+@media (min-width: 640px) {
+  .vf-passo,
+  .vf-passo[aria-current="step"] { flex: 1 1 0; }
+}
+
+/* 8. Botões e ações */
+
+.vf-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vf-e2) var(--vf-e3);
+  margin: var(--vf-e5) 0 0;
+}
+
+.vf-botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vf-e2);
+  min-height: var(--vf-alvo);
+  padding: var(--vf-e2) 1.125rem;
+  border: 1.5px solid var(--vf-borda-comp);
+  border-radius: var(--vf-raio);
+  background: var(--vf-superficie);
+  color: var(--vf-texto);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.vf-botao:hover { border-color: var(--vf-texto); }
+
+.vf-botao--primario {
+  background: var(--vf-acento);
+  border-color: var(--vf-acento);
+  color: var(--vf-sobre-acento);
+}
+
+.vf-botao--primario:hover { border-color: var(--vf-texto); }
+
+/* ação de terceiro nível: parece ligação, mantém o alvo de 44 px */
+.vf-botao--discreto {
+  padding-inline: var(--vf-e2);
+  border-color: transparent;
+  background: none;
+  color: var(--vf-acento);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.vf-botao--discreto:hover { border-color: var(--vf-borda-comp); }
+
+/* bloqueado: traço tracejado e texto secundário; o motivo vem escrito ao lado */
+.vf-botao:disabled,
+.vf-botao[aria-disabled="true"] {
+  border-style: dashed;
+  border-color: var(--vf-borda-comp);
+  background: none;
+  color: var(--vf-texto-2);
+  font-weight: 400;
+  cursor: not-allowed;
+}
+
+.vf-acoes-motivo {
+  flex: 1 1 12rem;
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--vf-texto-2);
+}
+
+@media (max-width: 479px) {
+  .vf-acoes .vf-botao { flex: 1 1 100%; }
+}
+
+/* 9. Cartões de material
+   Escolhido: borda mais grossa, fundo suave, negrito e visto no círculo do canto. */
+
+.vf-opcoes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--vf-e3);
+  margin: 0 0 var(--vf-e5);
+}
+
+.vf-opcoes > legend { grid-column: 1 / -1; }
+
+@media (min-width: 640px) {
+  .vf-opcoes,
+  .vf-opcoes--duas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 900px) {
+  .vf-opcoes { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .vf-opcoes--duas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.vf-opcao {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--vf-e3);
+  row-gap: 0.125rem;
+  align-content: start;
+  min-height: 4.5rem;
+  padding: var(--vf-e4) 3rem var(--vf-e4) var(--vf-e4);
+  border: 1.5px solid var(--vf-borda-comp);
+  border-radius: var(--vf-raio-caixa);
+  background: var(--vf-superficie);
+  cursor: pointer;
+}
+
+.vf-opcao:hover { border-color: var(--vf-texto); }
+
+/* o botão de opção continua na página e no teclado; quem aparece é o círculo do canto */
+.vf-opcao > input {
+  position: absolute;
+  top: var(--vf-e4);
+  right: var(--vf-e4);
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.vf-opcao-icone {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  width: 2rem;
+  height: 2rem;
+  color: var(--vf-texto-2);
+}
+
+.vf-opcao-titulo {
+  grid-column: 2;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.vf-opcao-descricao,
+.vf-opcao-nota {
+  grid-column: 2;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--vf-texto-2);
+}
+
+.vf-opcao > .vf-marca { grid-column: 2; justify-self: start; margin-top: var(--vf-e1); }
+
+.vf-opcao-marca {
+  position: absolute;
+  top: var(--vf-e4);
+  right: var(--vf-e4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1.5px solid var(--vf-borda-comp);
+  border-radius: 50%;
+  background: var(--vf-superficie);
+  color: var(--vf-sobre-acento);
+  pointer-events: none;
+}
+
+.vf-opcao-marca .vf-icone {
+  width: 1rem;
+  height: 1rem;
+  stroke-width: 2.5;
+  visibility: hidden;
+}
+
+@media (min-width: 640px) {
+  /* a partir de duas colunas o ícone sobe e o texto fica embaixo */
+  .vf-opcao {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--vf-e4);
+    min-height: 9rem;
+  }
+  .vf-opcao-icone { grid-row: auto; margin-bottom: var(--vf-e3); }
+  .vf-opcao-titulo,
+  .vf-opcao-descricao,
+  .vf-opcao-nota,
+  .vf-opcao > .vf-marca { grid-column: 1; }
+}
+
+.vf-opcao:has(> input:checked) {
+  border-color: var(--vf-acento);
+  box-shadow: inset 0 0 0 1.5px var(--vf-acento);
+  background: var(--vf-acento-suave);
+}
+
+.vf-opcao:has(> input:checked) .vf-opcao-titulo { font-weight: 700; }
+
+.vf-opcao:has(> input:checked) .vf-opcao-icone { color: var(--vf-acento); }
+
+.vf-opcao:has(> input:checked) .vf-opcao-marca {
+  border-color: var(--vf-acento);
+  background: var(--vf-acento);
+}
+
+.vf-opcao:has(> input:checked) .vf-opcao-marca .vf-icone { visibility: visible; }
+
+.vf-opcao:focus-within {
+  outline: 3px solid var(--vf-foco);
+  outline-offset: 2px;
+}
+
+.vf-opcao > input:focus,
+.vf-opcao > input:focus-visible { outline: none; }
+
+/* 10. Etapas
+   Uma etapa por linha. A linha inteira aciona a caixa, pelo rótulo estendido. */
+
+.vf-etapas { margin: 0 0 var(--vf-e4); }
+
+.vf-etapas > legend {
+  margin: 0;
+  line-height: var(--vf-alvo);
+}
+
+/* atalho "Marcar todas": pílula tracejada com ícone, à direita, longe da coluna das caixas */
+.vf-marcar-bloco {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--vf-e1);
+  margin: 0 0 var(--vf-e3);
+}
+
+@media (min-width: 480px) {
+  /* dentro do grupo, o botão sobe para a linha do título "Etapas" */
+  .vf-etapas > .vf-marcar-bloco { margin-top: calc(-1 * var(--vf-alvo)); }
+}
+
+.vf-marcar-todas {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vf-e2);
+  min-height: var(--vf-alvo);
+  padding: var(--vf-e2) var(--vf-e4);
+  border: 1.5px dashed var(--vf-borda-comp);
+  border-radius: 999px;
+  background: none;
+  color: var(--vf-texto);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.vf-marcar-todas:hover {
+  border-style: solid;
+  border-color: var(--vf-texto);
+  background: var(--vf-chip);
+}
+
+.vf-etapa {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--vf-e3);
+  align-items: start;
+  padding: var(--vf-e1) var(--vf-e2) var(--vf-e2);
+  border-top: 1px solid var(--vf-borda-dec);
+}
+
+.vf-etapa:last-child { border-bottom: 1px solid var(--vf-borda-dec); }
+
+.vf-etapa:hover { background: var(--vf-chip); }
+
+.vf-etapa > input {
+  grid-row: 1 / span 3;
+  width: 1.375rem;
+  height: 1.375rem;
+  margin: 0.6875rem 0 0;
+  accent-color: var(--vf-acento);
+}
+
+.vf-etapa > label {
+  display: flex;
+  align-items: center;
+  min-height: var(--vf-alvo);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.vf-etapa > label::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.vf-etapa > input:checked + label { font-weight: 700; }
+
+.vf-etapa-descricao,
+.vf-etapa-situacao {
+  grid-column: 2;
+  margin: 0 0 var(--vf-e1);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--vf-texto-2);
+}
+
+.vf-etapa-descricao { margin-top: -0.375rem; }
+
+.vf-etapa-situacao { font-variant-numeric: tabular-nums; }
+
+/* 11. Campos de formulário */
+
+.vf-campo {
+  max-width: 28rem;
+  margin: 0 0 var(--vf-e5);
+}
+
+.vf-campo-rotulo {
+  display: block;
+  margin-bottom: var(--vf-e1);
+  font-weight: 600;
+}
+
+.vf-campo-ajuda,
+.vf-campo-erro {
+  margin: 0 0 var(--vf-e2);
+  font-size: 0.875rem;
+  color: var(--vf-texto-2);
+}
+
+.vf-campo-erro { margin: var(--vf-e2) 0 0; color: var(--vf-texto); }
+
+.vf-campo-erro > b,
+.vf-campo-erro > .vf-icone { color: var(--vf-erro); }
+
+.vf-entrada {
+  display: block;
+  width: 100%;
+  min-height: var(--vf-alvo);
+  padding: var(--vf-e2) var(--vf-e3);
+  border: 1.5px solid var(--vf-borda-comp);
+  border-radius: var(--vf-raio);
+  background: var(--vf-superficie);
+  color: var(--vf-texto);
+}
+
+.vf-entrada:disabled {
+  border-style: dashed;
+  background: none;
+  color: var(--vf-texto-2);
+}
+
+textarea.vf-entrada {
+  min-height: 6rem;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* inválido: borda mais grossa e mensagem com a palavra "Erro" */
+.vf-entrada[aria-invalid="true"] {
+  border-color: var(--vf-erro);
+  border-width: 2.5px;
+}
+
+/* 12. Área de envio */
+
+.vf-soltar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--vf-e2);
+  margin: 0 0 var(--vf-e4);
+  padding: var(--vf-e5) var(--vf-e4);
+  border: 2px dashed var(--vf-borda-comp);
+  border-radius: var(--vf-raio-caixa);
+  text-align: center;
+}
+
+.vf-soltar > .vf-icone { color: var(--vf-texto-2); }
+
+.vf-soltar[data-vf-sobre] {
+  border-style: solid;
+  border-color: var(--vf-acento);
+  background: var(--vf-acento-suave);
+}
+
+.vf-soltar-texto {
+  margin: 0;
+  font-weight: 600;
+}
+
+.vf-soltar-ajuda {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--vf-texto-2);
+}
+
+/* o input fica oculto; o foco aparece no rótulo em forma de botão */
+.vf-soltar:focus-within > .vf-botao {
+  outline: 3px solid var(--vf-foco);
+  outline-offset: 2px;
+}
+
+@media (pointer: coarse) {
+  /* em tela de toque não há arrastar: some o convite, fica o botão */
+  .vf-soltar-texto { display: none; }
+}
+
+/* caminho de pasta, com ícone */
+.vf-caminho {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--vf-e2);
+  margin: var(--vf-e3) 0 0;
+  font-size: 0.875rem;
+  color: var(--vf-texto-2);
+  overflow-wrap: anywhere;
+}
+
+.vf-caminho > .vf-icone { margin-top: 0.0625rem; }
+
+/* 13. Tabelas */
+
+.vf-tabela {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.9375rem;
+}
+
+.vf-tabela caption {
+  caption-side: top;
+  text-align: left;
+  padding: var(--vf-e2) var(--vf-e3) var(--vf-e1);
+  font-size: 0.875rem;
+  color: var(--vf-texto-2);
+}
+
+.vf-tabela th,
+.vf-tabela td {
+  padding: var(--vf-e2) var(--vf-e3);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--vf-borda-dec);
+}
+
+.vf-tabela tbody tr:last-child > * { border-bottom: 0; }
+
+.vf-tabela thead th {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--vf-texto-2);
+  border-bottom: 1px solid var(--vf-borda-comp);
+}
+
+.vf-tabela tbody th { font-weight: 600; }
+
+.vf-tabela .vf-num { text-align: right; }
+
+.vf-tabela tr.vf-tabela-destaque > * {
+  font-weight: 700;
+  border-top: 1px solid var(--vf-borda-comp);
+}
+
+.vf-tabela .vf-botao {
+  min-height: var(--vf-alvo);
+  padding-inline: var(--vf-e3);
+  font-size: 0.875rem;
+}
+
+.vf-tabela-rolagem {
+  max-width: 100%;
+  max-height: 24rem;
+  margin: 0 0 var(--vf-e4);
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--vf-borda-dec);
+  border-radius: var(--vf-raio-caixa);
+  background: var(--vf-superficie);
+}
+
+.vf-tabela-rolagem .vf-tabela thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--vf-superficie);
+}
+
+/* situação de um arquivo ou de uma nota: ícone e palavra */
+.vf-situacao {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.375rem;
+  text-align: left;
+}
+
+.vf-situacao > .vf-icone { margin-top: 0.125rem; }
+
+.vf-situacao[data-tipo="erro"] > .vf-icone { color: var(--vf-erro); }
+
+.vf-situacao[data-tipo="aviso"] > .vf-icone { color: var(--vf-pendente-borda); }
+
+/* linha do tempo por agente */
+.vf-tempo-celula {
+  min-width: 9rem;
+  white-space: nowrap;
+}
+
+.vf-tempo-celula .vf-num {
+  display: inline-block;
+  min-width: 3.5rem;
+}
+
+.vf-tempo-barra {
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(100% - 4.25rem);
+  min-width: 4rem;
+  height: 0.5rem;
+  margin-left: var(--vf-e2);
+  border-radius: 999px;
+  background: var(--vf-chip);
+}
+
+.vf-tempo-barra > i {
+  display: block;
+  width: var(--vf-p, 0%);
+  height: 100%;
+  border-radius: 999px;
+  background: var(--vf-acento);
+}
+
+.vf-aviso {
+  display: block;
+  margin-top: 0.125rem;
+  font-size: 0.875rem;
+}
+
+.vf-aviso > b { font-weight: 700; }
+
+@media (max-width: 639px) {
+  /* abaixo de 640 px cada linha vira um cartão; o rótulo vem de data-rotulo */
+  .vf-tabela-rolagem:has(> .vf-cartoes),
+  .vf-tabela-rolagem:has(> .vf-tempo) {
+    max-height: none;
+    overflow: visible;
+    border: 0;
+    background: none;
+  }
+
+  .vf-tempo,
+  .vf-tempo tbody,
+  .vf-tempo tr,
+  .vf-tempo th,
+  .vf-tempo td,
+  .vf-cartoes,
+  .vf-cartoes tbody,
+  .vf-cartoes tr,
+  .vf-cartoes th,
+  .vf-cartoes td { display: block; }
+
+  .vf-tempo caption,
+  .vf-cartoes caption { display: block; padding-inline: 0; }
+
+  .vf-tempo thead,
+  .vf-cartoes thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .vf-tempo tbody tr,
+  .vf-cartoes tbody tr {
+    margin-bottom: var(--vf-e3);
+    padding: var(--vf-e3) var(--vf-e4);
+    background: var(--vf-superficie);
+    border: 1px solid var(--vf-borda-dec);
+    border-radius: var(--vf-raio-caixa);
+  }
+
+  .vf-tempo tbody th,
+  .vf-cartoes tbody th {
+    padding: 0 0 var(--vf-e1);
+    border-bottom: 0;
+    font-size: 1rem;
+    overflow-wrap: anywhere;
+  }
+
+  .vf-tempo tbody td,
+  .vf-cartoes tbody td {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0 var(--vf-e3);
+    padding: 0.3125rem 0;
+    border-bottom: 0;
+    text-align: right;
+  }
+
+  .vf-tempo tbody td:empty,
+  .vf-cartoes tbody td:empty { display: none; }
+
+  .vf-tempo tbody td::before,
+  .vf-cartoes tbody td::before {
+    content: attr(data-rotulo);
+    font-size: 0.875rem;
+    color: var(--vf-texto-2);
+    text-align: left;
+  }
+
+  .vf-tempo .vf-tempo-celula { min-width: 0; }
+
+  .vf-tempo .vf-tempo-barra {
+    flex: 1 1 100%;
+    width: 100%;
+    margin: var(--vf-e1) 0 0;
+  }
+
+  .vf-cartoes tbody td .vf-botao { flex: 1 1 100%; margin-top: var(--vf-e1); }
+}
+
+/* 14. Custo: resumo, total e confirmação */
+
+.vf-resumo {
+  margin: 0 0 var(--vf-e5);
+  font-size: 0.9375rem;
+}
+
+.vf-resumo > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0 var(--vf-e4);
+  padding: 0.375rem 0;
+  border-bottom: 1px solid var(--vf-borda-dec);
+}
+
+.vf-resumo > div:last-child { border-bottom: 0; }
+
+.vf-resumo dt { font-size: 0.875rem; color: var(--vf-texto-2); }
+
+.vf-resumo dd { margin: 0; font-weight: 600; }
+
+@media (min-width: 480px) {
+  .vf-resumo > div { grid-template-columns: 7rem minmax(0, 1fr); align-items: baseline; }
+}
+
+/* o total é o maior texto do passo 3 */
+.vf-total {
+  display: flex;
+  flex-direction: column;
+  max-width: none;
+  margin: 0 0 var(--vf-e4);
+}
+
+.vf-total-rotulo {
+  font-size: 0.875rem;
+  color: var(--vf-texto-2);
+}
+
+.vf-total-valor {
+  font-family: var(--vf-serifa);
+  font-size: clamp(1.75rem, 1.25rem + 2.5vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+  white-space: normal;
+}
+
+/* a única superfície com borda forte: é onde a pessoa autoriza o gasto */
+.vf-confirma {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--vf-e3);
+  align-items: start;
+  margin: var(--vf-e5) 0 0;
+  padding: var(--vf-e4);
+  border: 1.5px solid var(--vf-borda-comp);
+  border-radius: var(--vf-raio-caixa);
+  background: var(--vf-superficie);
+}
+
+.vf-confirma > input[type="checkbox"] {
+  width: 1.375rem;
+  height: 1.375rem;
+  margin: 0.6875rem 0 0;
+  accent-color: var(--vf-acento);
+}
+
+.vf-confirma > label {
+  display: flex;
+  align-items: center;
+  min-height: var(--vf-alvo);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.vf-confirma > p,
+.vf-confirma > .vf-acoes { grid-column: 1 / -1; }
+
+.vf-confirma > p { margin: 0; font-weight: 600; }
+
+.vf-confirma > .vf-acoes { margin-top: var(--vf-e3); }
+
+/* 15. Progresso das etapas: linha do tempo vertical */
+
+.vf-progresso {
+  max-width: none;
+  margin: var(--vf-e4) 0 var(--vf-e5);
+  padding: 0;
+  list-style: none;
+}
+
+.vf-progresso-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  column-gap: var(--vf-e3);
+  align-items: start;
+  margin: 0;
+  padding: var(--vf-e2) var(--vf-e3);
+  border-radius: var(--vf-raio);
+}
+
+/* fio que liga uma etapa à seguinte; decorativo */
+.vf-progresso-item::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--vf-e3) + 0.75rem - 1px);
+  top: 2.375rem;
+  bottom: -0.375rem;
+  width: 2px;
+  background: var(--vf-borda-dec);
+}
+
+.vf-progresso-item:last-child::before { display: none; }
+
+.vf-progresso-marca {
+  grid-row: 1 / span 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.vf-progresso-marca .vf-icone { width: 1.5rem; height: 1.5rem; }
+
+.vf-progresso-nome {
+  grid-column: 2;
+  font-weight: 600;
+  line-height: 1.5rem;
+}
+
+.vf-progresso-situacao {
+  grid-column: 2;
+  font-size: 0.875rem;
+  color: var(--vf-texto-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* em curso: fundo suave, nome maior e em negrito, e a palavra "Rodando" */
+.vf-progresso-item[aria-current="step"] {
+  padding-block: var(--vf-e3);
+  background: var(--vf-acento-suave);
+}
+
+.vf-progresso-item[aria-current="step"]::before { display: none; }
+
+.vf-progresso-item[aria-current="step"] .vf-progresso-nome {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.vf-progresso-item[aria-current="step"] .vf-progresso-marca { color: var(--vf-acento); }
+
+.vf-progresso-item[aria-current="step"] .vf-progresso-situacao { color: var(--vf-texto); }
+
+.vf-progresso-item[data-estado="falhou"] .vf-progresso-marca { color: var(--vf-erro); }
+
+.vf-progresso-item[data-estado="falhou"] .vf-progresso-situacao { color: var(--vf-texto); font-weight: 600; }
+
+.vf-progresso-item[data-estado="aviso"] .vf-progresso-marca { color: var(--vf-pendente-borda); }
+
+.vf-progresso-item[data-estado="espera"] .vf-progresso-nome,
+.vf-progresso-item[data-estado="pulada"] .vf-progresso-nome {
+  font-weight: 400;
+  color: var(--vf-texto-2);
+}
+
+.vf-progresso-item[data-estado="espera"] .vf-progresso-marca,
+.vf-progresso-item[data-estado="pulada"] .vf-progresso-marca { color: var(--vf-borda-comp); }
+
+/* 16. Métricas: linha de valores, sem caixas. Informação secundária. */
+
+.vf-metricas,
+.vf-metricas--caixas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--vf-e3) var(--vf-e5);
+  max-width: none;
+  margin: var(--vf-e4) 0;
+  padding: var(--vf-e3) 0;
+  border-top: 1px solid var(--vf-borda-dec);
+  border-bottom: 1px solid var(--vf-borda-dec);
+}
+
+@media (min-width: 640px) {
+  .vf-metricas,
+  .vf-metricas--caixas {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+  }
+}
+
+.vf-metrica {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* aceita dt e dd, ou span e strong como o JS escreve hoje */
+.vf-metrica dt,
+.vf-metrica > span:first-child {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--vf-texto-2);
+}
+
+.vf-metrica dd,
+.vf-metrica > strong {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* 17. Revisão da nota: a nota primeiro, as fotos ao lado */
+
+.vf-revisao {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--vf-e5);
+  max-width: none;
+  margin: var(--vf-e4) 0 var(--vf-e5);
+}
+
+.vf-revisao h3 {
+  margin: 0 0 var(--vf-e2);
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+}
+
+.vf-nota-texto {
+  margin: 0;
+  padding: var(--vf-e4);
+  border: 1px solid var(--vf-borda-dec);
+  border-radius: var(--vf-raio-caixa);
+  background: var(--vf-superficie);
+  font-family: var(--vf-mono);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  tab-size: 2;
+}
+
+@media (min-width: 900px) {
+  .vf-revisao {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .vf-nota-texto {
+    max-height: calc(100vh - 6rem);
+    padding: var(--vf-e5);
+    overflow: auto;
+    overscroll-behavior: contain;
+    font-size: 0.9375rem;
+  }
+
+  /* as fotos acompanham a leitura */
+  .vf-revisao-origem {
+    position: sticky;
+    top: var(--vf-e4);
+    max-height: calc(100vh - 2rem);
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+.vf-fotos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+  gap: var(--vf-e3);
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vf-foto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vf-e1);
+  margin: 0;
+}
+
+.vf-foto img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--vf-borda-dec);
+  border-radius: var(--vf-raio);
+  background: var(--vf-chip);
+}
+
+.vf-foto .vf-botao {
+  width: 100%;
+  padding-inline: var(--vf-e2);
+  font-size: 0.875rem;
+}
+
+/* 18. Estados: vazio, carregando, erro, aviso e sucesso
+   Um só desenho: ícone, palavra e frase. Só o erro tem borda colorida. */
+
+.vf-estado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--vf-e2) 0.625rem;
+  max-width: none;
+  margin: var(--vf-e4) 0;
+  padding: var(--vf-e3) var(--vf-e4);
+  border: 1.5px solid transparent;
+  border-radius: var(--vf-raio-caixa);
+  background: var(--vf-chip);
+  color: var(--vf-texto);
+  font-size: 0.9375rem;
+}
+
+.vf-estado > .vf-icone { margin-top: 0.125rem; }
+
+.vf-estado > p {
+  flex: 1 1 12rem;
+  margin: 0;
+  max-width: none;
+}
+
+.vf-estado > .vf-acoes {
+  flex: 1 1 100%;
+  margin: var(--vf-e1) 0 0;
+}
+
+.vf-estado--vazio {
+  flex-direction: column;
+  align-items: center;
+  padding: var(--vf-e5) var(--vf-e4);
+  border: 1.5px dashed var(--vf-borda-comp);
+  background: none;
+  color: var(--vf-texto-2);
+  text-align: center;
+}
+
+.vf-estado--vazio > p { flex: none; }
+
+.vf-estado--erro {
+  border-color: var(--vf-erro);
+  background: var(--vf-superficie);
+}
+
+.vf-estado--erro > .vf-icone,
+.vf-estado--erro > strong:first-child,
+.vf-estado--erro > b:first-child,
+.vf-estado--erro > p > strong:first-child,
+.vf-estado--erro > p > b:first-child { color: var(--vf-erro); }
+
+.vf-estado--aviso {
+  background: var(--vf-pendente-fundo);
+  color: var(--vf-pendente-texto);
+}
+
+.vf-estado--aviso > .vf-icone { color: var(--vf-pendente-borda); }
+
+.vf-estado--sucesso > .vf-icone { color: var(--vf-acento); }
+
+/* carregando: anel desenhado em CSS; parado quando há movimento reduzido */
+.vf-estado--carregando {
+  align-items: center;
+  background: none;
+  padding-inline: 0;
+  color: var(--vf-texto-2);
+}
+
+.vf-estado--carregando::before {
+  content: "";
+  flex: none;
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid var(--vf-borda-comp);
+  border-top-color: var(--vf-acento);
+  border-radius: 50%;
+}
+
+/* 19. Avisos da nota */
+
+.vf-lista-avisos {
+  max-width: var(--vf-leitura);
+  margin: 0 0 var(--vf-e5);
+  padding: 0;
+  list-style: none;
+}
+
+.vf-lista-avisos > div,
+.vf-lista-avisos > li {
+  margin: 0 0 var(--vf-e2);
+  padding: var(--vf-e3) var(--vf-e4);
+  border-radius: var(--vf-raio-caixa);
+  background: var(--vf-pendente-fundo);
+  color: var(--vf-pendente-texto);
+  font-size: 0.9375rem;
+}
+
+.vf-lista-avisos > div > :last-child,
+.vf-lista-avisos > li > :last-child { margin-bottom: 0; }
+
+.vf-lista-avisos p > .vf-icone { margin-right: 0.375rem; color: var(--vf-pendente-borda); }
+
+/* 20. Bloco de código com botão Copiar */
+
+.vf-codigo {
+  max-width: var(--vf-leitura);
+  margin: var(--vf-e2) 0 var(--vf-e4);
+  border-radius: var(--vf-raio-caixa);
+  background: var(--vf-chip);
+  overflow: hidden;
+}
+
+.vf-codigo-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vf-e3);
+  padding-left: var(--vf-e4);
+}
+
+.vf-codigo-topo figcaption,
+.vf-codigo-rotulo {
+  font-size: 0.875rem;
+  color: var(--vf-texto-2);
+}
+
+.vf-copiar {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  min-width: 6.5rem;
+  min-height: var(--vf-alvo);
+  padding: 0 var(--vf-e4);
+  border: 0;
+  border-radius: var(--vf-raio);
+  background: none;
+  color: var(--vf-texto);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.vf-copiar:hover { background: var(--vf-superficie); }
+
+.vf-copiar:focus-visible { outline-offset: -3px; }
+
+.vf-codigo pre {
+  margin: 0;
+  padding: 0 var(--vf-e4) var(--vf-e3);
+  font-family: var(--vf-mono);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  tab-size: 2;
+}
+
+.vf-codigo code {
+  font-family: inherit;
+  font-size: inherit;
+  background: none;
+  padding: 0;
+}
+
+/* 21. Detalhe recolhível; a seta é desenhada em CSS */
+
+.vf-detalhe {
+  max-width: none;
+  margin: 0 0 var(--vf-e4);
+  border-top: 1px solid var(--vf-borda-dec);
+  border-bottom: 1px solid var(--vf-borda-dec);
+}
+
+.vf-detalhe > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--vf-e3);
+  min-height: var(--vf-alvo);
+  padding: var(--vf-e2) var(--vf-e1);
+  border-radius: var(--vf-raio);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.vf-detalhe > summary::-webkit-details-marker { display: none; }
+
+.vf-detalhe > summary::before {
+  content: "";
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 0 0.125rem 0 0.25rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+}
+
+.vf-detalhe[open] > summary::before { transform: translateY(-0.125rem) rotate(45deg); }
+
+.vf-detalhe > summary:hover { background: var(--vf-chip); }
+
+.vf-detalhe > :not(summary) { margin: var(--vf-e2) 0 var(--vf-e4); }
+
+.vf-detalhe > p { font-size: 0.9375rem; color: var(--vf-texto-2); }
+
+/* 22. Diálogo nativo */
+
+.vf-dialogo {
+  width: min(34rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  padding: var(--vf-e5);
+  border: 1.5px solid var(--vf-borda-comp);
+  border-radius: var(--vf-raio-caixa);
+  background: var(--vf-superficie);
+  color: var(--vf-texto);
+}
+
+.vf-dialogo::backdrop { background: rgba(0, 0, 0, 0.6); }
+
+.vf-dialogo-titulo {
+  margin: 0 0 var(--vf-e3);
+  font-size: 1.25rem;
+}
+
+.vf-dialogo-titulo + p { color: var(--vf-texto); margin-bottom: var(--vf-e3); }
+
+.vf-dialogo--foto { width: min(64rem, calc(100vw - 2rem)); }
+
+.vf-dialogo--foto img {
+  display: block;
+  max-height: 70vh;
+  margin: 0 auto var(--vf-e4);
+  border-radius: var(--vf-raio);
+}
+
+.vf-dialogo .vf-acoes { justify-content: flex-end; }
+
+/* 23. Etiqueta, cartão e nota de apoio */
+
+.vf-marca {
+  display: inline-block;
+  padding: 0.0625rem var(--vf-e2);
+  border: 1px solid var(--vf-borda-comp);
+  border-radius: 999px;
+  color: var(--vf-texto-2);
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+h2 + .vf-marca,
+h3 + .vf-marca { margin-bottom: var(--vf-e3); }
+
+.vf-cartao {
+  margin: var(--vf-e4) 0;
+  padding: var(--vf-e4);
+  background: var(--vf-superficie);
+  border: 1px solid var(--vf-borda-dec);
+  border-radius: var(--vf-raio-caixa);
+}
+
+.vf-cartao > :first-child { margin-top: 0; }
+.vf-cartao > :last-child { margin-bottom: 0; }
+
+.vf-cartao h3 { font-size: 1rem; }
+
+/* recurso que ainda não existe: tracejado e em texto secundário */
+.vf-cartao--futuro {
+  border-style: dashed;
+  border-color: var(--vf-borda-comp);
+  background: none;
+  color: var(--vf-texto-2);
+}
+
+.vf-nota {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--vf-e2);
+  max-width: var(--vf-leitura);
+  margin: 0 0 var(--vf-e4);
+  padding: 0 0 0 var(--vf-e3);
+  border-left: 3px solid var(--vf-borda-comp);
+  font-size: 0.9375rem;
+  color: var(--vf-texto-2);
+}
+
+.vf-nota > .vf-icone { margin-top: 0.125rem; }
+
+/* 24. Tirar dúvidas (para quando entrar) */
+
+.vf-duvida {
+  margin: 0 0 var(--vf-e4);
+  padding: var(--vf-e4);
+  border: 1px solid var(--vf-borda-dec);
+  border-radius: var(--vf-raio-caixa);
+  background: var(--vf-superficie);
+}
+
+.vf-duvida-pergunta { margin: 0 0 var(--vf-e2); }
+
+.vf-duvida-resposta {
+  max-width: var(--vf-leitura);
+  white-space: pre-wrap;
+}
+
+.vf-duvida-fonte,
+.vf-duvida-confianca {
+  margin: 0 0 0.375rem;
+  font-size: 0.875rem;
+  color: var(--vf-texto-2);
+}
+
+.vf-duvida-fonte > b,
+.vf-duvida-confianca > b { color: var(--vf-texto); }
+
+.vf-duvida-decisao {
+  margin-top: var(--vf-e3);
+  padding-top: var(--vf-e2);
+  border-top: 1px solid var(--vf-borda-dec);
+}
+
+.vf-duvida-decisao > legend {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.vf-duvida-decisao > label {
+  display: flex;
+  align-items: center;
+  gap: var(--vf-e2);
+  min-height: var(--vf-alvo);
+  cursor: pointer;
+}
+
+.vf-duvida-decisao input {
+  width: 1.375rem;
+  height: 1.375rem;
+  margin: 0;
+  accent-color: var(--vf-acento);
+}
+
+.vf-duvida-decisao input:checked + span { font-weight: 700; }
+
+.vf-contador {
+  font-size: 0.875rem;
+  color: var(--vf-texto-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 25. Ajuda */
+
+.vf-fluxo { margin: var(--vf-e3) 0 var(--vf-e4); }
+
+img.vf-fluxo,
+.vf-fluxo svg,
+.vf-fluxo img {
+  display: block;
+  width: 100%;
+  max-width: 21.25rem;
+  height: auto;
+}
+
+.vf-fluxo-legenda {
+  margin: var(--vf-e3) 0 var(--vf-e1);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--vf-texto-2);
+}
+
+.vf-fluxo-texto {
+  max-width: var(--vf-leitura);
+  margin: var(--vf-e2) 0 0;
+  padding-left: 1.5rem;
+  font-size: 0.9375rem;
+  color: var(--vf-texto-2);
+}
+
+/* 26. Cores forçadas e impressão */
+
+@media (forced-colors: active) {
+  .vf-opcao:has(> input:checked),
+  .vf-aba[aria-selected="true"],
+  .vf-passo[aria-current="step"],
+  .vf-progresso-item[aria-current="step"] { outline: 2px solid Highlight; outline-offset: -2px; }
+
+  .vf-opcao-marca { color: CanvasText; }
+  .vf-passo[data-feito] { border-top-style: double; }
+  .vf-tempo-barra { border: 1px solid CanvasText; }
+  .vf-tempo-barra > i { background: Highlight; }
+  .vf-progresso-item::before { background: CanvasText; }
+  .vf-botao--primario { border-width: 3px; }
+}
+
+@media print {
+  .vf-abas-lista,
+  .vf-passos,
+  .vf-copiar,
+  .vf-acoes,
+  .vf-pular,
+  .vf-marcar-bloco,
+  .vf-soltar { display: none; }
+
+  .vf-app,
+  .vf-app:has(.vf-revisao) { max-width: none; }
+
+  .vf-nota-texto,
+  .vf-revisao-origem,
+  .vf-tabela-rolagem { max-height: none; overflow: visible; position: static; }
+}
+
+/* 27. Movimento: só para quem não pediu movimento reduzido */
+
+@keyframes vf-girar {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .vf-botao,
+  .vf-aba,
+  .vf-opcao,
+  .vf-opcao-marca,
+  .vf-etapa,
+  .vf-marcar-todas,
+  .vf-copiar,
+  .vf-entrada,
+  .vf-soltar,
+  .vf-detalhe > summary {
+    transition: background-color 0.12s ease-out, border-color 0.12s ease-out, color 0.12s ease-out;
+  }
+
+  .vf-detalhe > summary::before { transition: transform 0.12s ease-out; }
+
+  .vf-estado--carregando::before { animation: vf-girar 0.9s linear infinite; }
+
+  .vf-progresso-item[data-estado="rodando"] .vf-progresso-marca .vf-icone {
+    transform-origin: 50% 50%;
+    animation: vf-girar 1.2s linear infinite;
+  }
+}

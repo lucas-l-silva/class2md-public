@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.Python
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Ferramentas Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Dados e secrets — nunca versionar
+agent-data/
+agent-secrets/
+*.env
+.env
+.env.*
+!.env.example
+.claude/settings.local.json
+
+# Diretórios de staging criados pelo promotor (relativos ao repo) — podem conter notas pessoais
+staging-local/
+staging-crops/
+
+# Saídas e execuções locais
+output/
+replay/
+logs/
+*.sqlite*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+.smbdelete*
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+*.jsonl
+
+# Modelos e índices locais
+*.bin
+*.gguf
+chroma_db/
+lancedb/

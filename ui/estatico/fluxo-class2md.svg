@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" lang="pt-BR" class="dg dg-fluxo-class2md" role="img" aria-labelledby="fc-t fc-d" viewBox="0 0 340 534" width="340" height="534">
+<title id="fc-t">Como o class2md leva a aula até a revisão</title>
+<desc id="fc-d">Seis etapas em sequência: fotos ou PDF, leitura pela IA, nota e flashcards escritos por agentes, pasta de revisão, revisão feita por você, e por fim Obsidian e Anki. A etapa 5 é uma decisão humana e tem borda dupla.</desc>
+<style>.dg{--f:#FAFAF8;--s:#FFFFFF;--t:#1B1F23;--t2:#4A5159;--b:#7A8189;font-family:system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}@media (prefers-color-scheme:dark){.dg{--f:#111417;--s:#1A1E23;--t:#E9EBEE;--t2:#B3B9C1;--b:#737B85}}.dg rect{fill:var(--s);stroke:var(--b);stroke-width:1.5}.dg rect.dg-fundo{fill:var(--f);stroke:none}.dg rect.dg-hum{stroke:var(--t);stroke-width:2}.dg rect.dg-hum2{fill:none;stroke:var(--t);stroke-width:1}.dg path{fill:none;stroke:var(--t2);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.dg text{fill:var(--t2);font-size:14px}.dg text.dg-tt{fill:var(--t);font-size:15px;font-weight:700}</style>
+<rect class="dg-fundo" x="0" y="0" width="340" height="534" rx="12"/>
+<rect x="20" y="16" width="300" height="62" rx="10"/>
+<text class="dg-tt" x="36" y="42">1. Fotos ou PDF</text>
+<text x="36" y="63">Lousa, caderno ou livro.</text>
+<path d="M170 82v17m-6 -6l6 6l6 -6"/>
+<rect x="20" y="104" width="300" height="62" rx="10"/>
+<text class="dg-tt" x="36" y="130">2. Leitura</text>
+<text x="36" y="151">A IA transcreve cada foto.</text>
+<path d="M170 170v17m-6 -6l6 6l6 -6"/>
+<rect x="20" y="192" width="300" height="62" rx="10"/>
+<text class="dg-tt" x="36" y="218">3. Nota e flashcards</text>
+<text x="36" y="239">Agentes escrevem e conferem.</text>
+<path d="M170 258v17m-6 -6l6 6l6 -6"/>
+<rect x="20" y="280" width="300" height="62" rx="10"/>
+<text class="dg-tt" x="36" y="306">4. Pasta de revisão</text>
+<text x="36" y="327">Nada vai direto ao Obsidian.</text>
+<path d="M170 346v17m-6 -6l6 6l6 -6"/>
+<rect class="dg-hum" x="20" y="368" width="300" height="62" rx="10"/>
+<rect class="dg-hum2" x="25" y="373" width="290" height="52" rx="6"/>
+<text class="dg-tt" x="36" y="394">5. Você revisa</text>
+<text x="36" y="415">Só entra o que você aprova.</text>
+<path d="M170 434v17m-6 -6l6 6l6 -6"/>
+<rect x="20" y="456" width="300" height="62" rx="10"/>
+<text class="dg-tt" x="36" y="482">6. Obsidian e Anki</text>
+<text x="36" y="503">Nota em Markdown e cartões.</text>
+</svg>

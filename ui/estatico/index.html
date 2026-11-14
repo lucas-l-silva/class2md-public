@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="class2md-token" content="{{TOKEN}}">
+  <title>class2md</title>
+  <link rel="stylesheet" href="/estatico/ui.css">
+</head>
+<body class="vf-app">
+  <a class="vf-pular" href="#conteudo">Ir para o conteúdo</a>
+  <header class="vf-topo">
+    <svg class="vf-icone vf-topo-marca" aria-hidden="true" focusable="false"><use href="/estatico/icones.svg#marca"></use></svg>
+    <h1 class="vf-topo-nome">class2md</h1>
+    <dl class="vf-topo-estado" aria-label="Situação">
+      <div><dt>Chave da API</dt><dd id="est-chave">verificando</dd></div>
+      <div><dt>Gasto do mês</dt><dd id="est-gasto" class="vf-num">sem dado</dd></div>
+    </dl>
+  </header>
+  <noscript>
+    <p class="vf-estado vf-estado--aviso">Esta página precisa de JavaScript. Você pode usar a linha de comando: veja o MANUAL_DE_USO.md.</p>
+  </noscript>
+  <div class="vf-abas">
+    <div class="vf-abas-lista" role="tablist" aria-label="Seções">
+      <button class="vf-aba" role="tab" id="aba-processar" aria-controls="painel-processar" aria-selected="true">Processar</button>
+      <button class="vf-aba" role="tab" id="aba-notas" aria-controls="painel-notas" aria-selected="false" tabindex="-1">Notas</button>
+      <button class="vf-aba" role="tab" id="aba-economia" aria-controls="painel-economia" aria-selected="false" tabindex="-1">Economia</button>
+      <button class="vf-aba" role="tab" id="aba-ajuda" aria-controls="painel-ajuda" aria-selected="false" tabindex="-1">Ajuda</button>
+    </div>
+    <main id="conteudo">
+      <section class="vf-painel" role="tabpanel" id="painel-processar" aria-labelledby="aba-processar" tabindex="0"></section>
+      <section class="vf-painel" role="tabpanel" id="painel-notas" aria-labelledby="aba-notas" tabindex="0" hidden></section>
+      <section class="vf-painel" role="tabpanel" id="painel-economia" aria-labelledby="aba-economia" tabindex="0" hidden></section>
+      <section class="vf-painel" role="tabpanel" id="painel-ajuda" aria-labelledby="aba-ajuda" tabindex="0" hidden></section>
+    </main>
+  </div>
+  <div class="vf-oculto" role="status" aria-live="polite" id="vf-anuncio"></div>
+  <footer class="vf-rodape">Esta página roda só neste computador. Endereço: 127.0.0.1.</footer>
+  <template id="molde-icone"><svg class="vf-icone" aria-hidden="true" focusable="false"><use href=""></use></svg></template>
+  <script src="/estatico/app.js"></script>
+</body>
+</html>
